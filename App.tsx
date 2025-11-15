@@ -5,11 +5,22 @@ import ReportGenerator from './components/ReportGenerator';
 import QRCodeGenerator from './components/QRCodeGenerator';
 import AITools from './components/AITools';
 import AIChat from './components/AIChat';
+import LoginPage from './components/LoginPage';
 import { PAGES } from './constants';
 import type { Page } from './types';
 
 const App: React.FC = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [currentPage, setCurrentPage] = useState<Page>(PAGES.HOME);
+
+  const handleLogin = () => {
+    setIsAuthenticated(true);
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    setCurrentPage(PAGES.HOME); // Reset to home page on logout
+  };
 
   const renderPage = () => {
     switch (currentPage) {
@@ -28,9 +39,13 @@ const App: React.FC = () => {
     }
   };
 
+  if (!isAuthenticated) {
+    return <LoginPage onLogin={handleLogin} />;
+  }
+
   return (
     <div className="min-h-screen bg-slate-900 text-slate-200">
-      <Header onLogoClick={() => setCurrentPage(PAGES.HOME)} />
+      <Header onLogoClick={() => setCurrentPage(PAGES.HOME)} onLogout={handleLogout} />
       <main className="pt-20">
         {renderPage()}
       </main>

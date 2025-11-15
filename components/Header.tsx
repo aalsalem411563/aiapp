@@ -2,9 +2,10 @@ import React from 'react';
 
 interface HeaderProps {
     onLogoClick: () => void;
+    onLogout: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ onLogoClick }) => {
+const Header: React.FC<HeaderProps> = ({ onLogoClick, onLogout }) => {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-sm shadow-md shadow-purple-500/10">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -20,7 +21,12 @@ const Header: React.FC<HeaderProps> = ({ onLogoClick }) => {
             <h1 className="text-xl font-bold text-slate-100">تقارير المعلم AI</h1>
           </div>
           <div className="flex items-center">
-            {/* Future navigation items can go here */}
+            <button
+              onClick={onLogout}
+              className="bg-pink-600 text-white font-bold py-2 px-4 rounded-md text-sm hover:bg-pink-700 transition duration-300"
+            >
+              تسجيل الخروج
+            </button>
           </div>
         </div>
       </div>
